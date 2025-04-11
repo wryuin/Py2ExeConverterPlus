@@ -1,86 +1,111 @@
-# Python в EXE конвертер
+# Python to EXE Converter
 
-Набор скриптов для простой конвертации Python-скриптов в исполняемые файлы (.exe) с возможностью подписи.
+A set of scripts for converting Python scripts to executable (.exe) files with digital signature support.
 
-## Файлы проекта
+## Project Files
 
-- `build.py` - основной скрипт сборки через PyInstaller
-- `signapp.py` - утилита для подписи .exe файлов (для Windows)
-- `test.py` - тестовый скрипт для проверки работы системы сборки
+- `build.py` - Main build script using PyInstaller
+- `signapp.py` - Utility for signing .exe files (Windows only)
+- `test.py` - Test script for build system verification
 
-## Требования
+## Requirements
 
-- Python 3.6 или выше
+- Python 3.6 or higher
 - PyInstaller (`pip install pyinstaller`)
-- Windows SDK (если нужна подпись файлов)
+- Windows SDK (for file signing)
 
-## Использование
+## Usage
 
-### Простая сборка
+### Basic Build
 
 ```bash
-# Сборка обычного приложения
-python build.py путь_к_скрипту.py
+# Basic application build
+python build.py path_to_script.py
 
-# Пример с тестовым скриптом
+# Example with test script
 python build.py test.py
 ```
 
-### Дополнительные опции
+### Additional Options
 
 ```bash
-# Задать имя выходного файла
-python build.py test.py --name МоеПриложение
+# Set output filename
+python build.py test.py --name MyApp
 
-# Установить иконку
-python build.py test.py --icon путь/к/иконке.ico
+# Set icon
+python build.py test.py --icon path/to/icon.ico
 
-# Создать оконное приложение (без консоли)
+# Create window application (no console)
 python build.py test.py --window
 
-# Создать папку с файлами вместо одного файла
+# Create directory instead of single file
 python build.py test.py --dir
 
-# Добавить дополнительные файлы/ресурсы
-python build.py test.py --data файл.txt ресурсы/
+# Add additional files/resources
+python build.py test.py --data file.txt resources/
 
-# Подписать после сборки (требуется Windows SDK)
+# Sign after build (requires Windows SDK)
 python build.py test.py --sign
+
+# Disable UPX compression
+python build.py test.py --no-upx
+
+# Add version information
+python build.py test.py --version-file version.txt
+
+# Save build configuration
+python build.py test.py --config build_config.json
+
+# Skip temporary files cleanup
+python build.py test.py --no-clean
 ```
 
-### Только подпись файла
+### File Signing Only
 
 ```bash
-# Подписывание существующего .exe
-python signapp.py путь/к/приложению.exe
+# Sign existing .exe
+python signapp.py path/to/app.exe
 
-# Подписывание с использованием сертификата
-python signapp.py путь/к/приложению.exe --cert сертификат.pfx --password пароль
+# Sign with certificate
+python signapp.py path/to/app.exe --cert certificate.pfx --password password
 
-# Дополнительные настройки подписи
-python signapp.py путь/к/приложению.exe --description "Мое приложение" --timestamp http://timestamp.digicert.com
+# Additional signing options
+python signapp.py path/to/app.exe --description "My Application" --timestamp http://timestamp.digicert.com
 ```
 
-## Примеры
+## Examples
 
-1. Создание простого приложения:
+1. Create simple application:
    ```bash
    python build.py test.py
    ```
 
-2. Создание оконного приложения с иконкой:
+2. Create window application with icon:
    ```bash
-   python build.py app.py --name МоеПриложение --icon icons/app.ico --window
+   python build.py app.py --name MyApp --icon icons/app.ico --window
    ```
 
-3. Сборка и подпись в одну команду:
+3. Build and sign in one command:
    ```bash
-   python build.py app.py --name ПодписанноеПриложение --sign
+   python build.py app.py --name SignedApp --sign
    ```
 
-## Примечания
+4. Build with version info and UPX compression:
+   ```bash
+   python build.py app.py --version-file version.txt
+   ```
 
-- Скрипты разработаны с минимализмом - простые и легко настраиваемые
-- Сборка создает файлы в папке `dist/`
-- Временные файлы PyInstaller находятся в папке `build/`
-- Для подписи требуется Windows SDK с утилитой signtool.exe
+5. Build with configuration saving:
+   ```bash
+   python build.py app.py --config build_config.json
+   ```
+
+## Notes
+
+- Scripts are designed with minimalism - simple and easily configurable
+- Build creates files in `dist/` directory
+- PyInstaller temporary files are in `build/` directory
+- Windows SDK with signtool.exe is required for signing
+- Build statistics (size, time) are saved in configuration file if specified
+- UPX compression can be disabled with `--no-upx` option
+- Version information can be added using `--version-file` option
