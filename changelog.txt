@@ -1,0 +1,13 @@
+Changelog for build.py
+======================
+
+v2.0.0
+-------
+- Refactored dependency checking: UPX is no longer installed via pip, but checked as a system executable. User is informed if UPX is missing.
+- PyInstaller and setuptools are now checked and installed/upgraded using 'python -m pip' for better compatibility.
+- Added robust error messages if PyInstaller is not installed.
+- Improved error handling and user feedback for missing dependencies and files.
+- Added importlib-based checks for Python packages instead of import errors.
+- Cleaned up and clarified code structure for maintainability.
+- Added user instructions for installing UPX if not found in PATH.
+- Minor improvements to logging and error output.
